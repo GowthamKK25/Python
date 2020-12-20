@@ -1,0 +1,123 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 57,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "CSV Header: ['Date', 'Profit/Losses']\n",
+      "The total amount of months is 86\n",
+      "The total profit and losses is $38382578\n",
+      "The average profit change is $-2315\n",
+      "Greatest increase is Feb-2012 $1926159\n",
+      "Greatest decrease is Sep-2013 $-2196167\n"
+     ]
+    }
+   ],
+   "source": [
+    "import os \n",
+    "import csv\n",
+    "\n",
+    "pybank = os.path.join(\"..\",\"Resources\",\"budget_data.csv\")\n",
+    "\n",
+    "\n",
+    "with open(pybank, 'r') as csvfile:\n",
+    "\n",
+    "    csvreader = csv.reader(csvfile, delimiter=',')\n",
+    "   \n",
+    "    csv_header = next(csvreader)\n",
+    "    print(f\"CSV Header: {csv_header}\")\n",
+    "    \n",
+    "    months = []\n",
+    "    profit = []\n",
+    "    revchange = []\n",
+    "    for row in csvreader:\n",
+    "        months.append(row[0])\n",
+    "        profit.append(int(row[1]))\n",
+    "        \n",
+    "        \n",
+    "        \n",
+    "    for x in range(1,len(profit)):\n",
+    "        revchange.append((int(profit[x]) - int(profit[x-1])))\n",
+    "\n",
+    "        \n",
+    "        \n",
+    "revavg = sum(revchange) / len(revchange)\n",
+    "highest = max(revchange)\n",
+    "lowest = min(revchange)\n",
+    "highestmonth =months[revchange.index(highest)+1]\n",
+    "lowmonth =months[revchange.index(lowest)+1]  \n",
+    "\n",
+    "\n",
+    "print(f'The total amount of months is {len(months)}')\n",
+    "print(f'The total profit and losses is ${sum(profit)}')\n",
+    "print(f'The average profit change is ${int(revavg)}')  \n",
+    "print(f'Greatest increase is {highestmonth} ${highest}')\n",
+    "print(f'Greatest decrease is {lowmonth} ${lowest}')\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 58,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "output_path = os.path.join(\"..\", \"Analysis\", \"BudgetAnalysis.csv\")\n",
+    " "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 59,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "with open(output_path, 'w', newline='') as csvfile:\n",
+    "\n",
+    "    # Initialize csv.writer\n",
+    "    csvwriter = csv.writer(csvfile, delimiter=',')\n",
+    "\n",
+    "    # Write the first row (column headers)\n",
+    "    csvwriter.writerow(\"The total amount of months is 86\")\n",
+    "    csvwriter.writerow{\"The total profit and losses is $38382578\")\n",
+    "    csvwriter.writerow(\"The average profit change is $-2315\")\n",
+    "    csvwriter.writerow(\"Greatest increase is Feb-2012 $1926159\")\n",
+    "    csvwriter.writerow(\"Greatest decrease is Sep-2013 $-2196167\")\n",
+    "\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
